@@ -1,4 +1,4 @@
-# wazuh_server_cookbook
+# wazuh_server
 
 TODO: Enter the cookbook description here.
 

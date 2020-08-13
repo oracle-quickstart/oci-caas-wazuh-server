@@ -1,4 +1,4 @@
-# InSpec test for recipe wazuh_server_cookbook::default
+# InSpec test for recipe wazuh_server::default
 
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://www.inspec.io/docs/reference/resources/

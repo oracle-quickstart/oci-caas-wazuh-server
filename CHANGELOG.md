@@ -1,6 +1,6 @@
-# wazuh_server_cookbook CHANGELOG
+# wazuh_server CHANGELOG
 
-This file is used to list changes made in each version of the wazuh_server_cookbook cookbook.
+This file is used to list changes made in each version of the wazuh_server cookbook.
 
 ## 0.1.0
 
