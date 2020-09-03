@@ -7,3 +7,17 @@ cron 'chef_client' do
 end
 
 chef_gem 'htauth'
+
+# Install, configure, and enable chrony client
+package 'chrony'
+
+cookbook_file '/etc/chrony.conf' do
+  source 'chrony.conf'
+  owner 'root'
+  group 'root'
+  mode '0644'
+end
+
+service 'chronyd' do
+  action :enable
+end
