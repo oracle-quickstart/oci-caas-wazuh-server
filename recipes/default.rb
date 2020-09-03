@@ -14,4 +14,6 @@ include_recipe '::nginx'
 include_recipe '::elasticsearch'
 include_recipe '::kibana'
 
+include_recipe '::clamav'
+
 include_recipe 'selinux::default'

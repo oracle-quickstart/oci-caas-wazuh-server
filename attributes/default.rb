@@ -21,10 +21,20 @@ default['ossec']['dir'] = '/var/ossec'
 default['ossec']['address'] = nil
 default['ossec']['ignore_failure'] = true
 
+# Filebeat settings
 default['filebeat']['package_name'] = 'filebeat'
 default['filebeat']['service_name'] = 'filebeat'
-default['filebeat']['elasticsearch_server_ip'] = "localhost"
+default['filebeat']['elasticsearch_server_ip'] = 'localhost'
 default['filebeat']['timeout'] = 15
 default['filebeat']['config_path'] = '/etc/filebeat/filebeat.yml'
 
+# Required for Kiabana/Nginx listener
 default['selinux']['booleans']['httpd_can_network_connect'] = 'on'
+
+# ClamAV settings
+default['clamav']['clamd']['enabled'] = true
+default['clamav']['freshclam']['enabled'] = true
+default['clamav']['dev_package'] = false
+
+# To fix an htauth installation error due to old apt cookbook dependency
+force_override['htpasswd']['install_method'] = 'packages'
