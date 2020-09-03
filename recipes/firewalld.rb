@@ -28,19 +28,19 @@ firewalld_rich_rule 'https_port_add' do
   action :add
 end
 
-firewalld_rich_rule 'wazuh_registration' do
+firewalld_rich_rule 'wazuh_client_reg' do
   zone 'public'
   family 'ipv4'
   source_address node['vcn_cidr_block']
-  port_number node['https_port']
+  port_number '1515'
   port_protocol 'tcp'
-  log_prefix 'wazuh_reg'
+  log_prefix 'wazuh_client_reg'
   log_level 'info'
   firewall_action 'accept'
   action :add
 end
 
-firewalld_rich_rule 'wazuh_clients' do
+firewalld_rich_rule 'wazuh_client' do
   zone 'public'
   family 'ipv4'
   source_address node['vcn_cidr_block']
