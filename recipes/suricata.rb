@@ -1,5 +1,5 @@
 #
-# Cookbook:: oci_caas_bastion
+# Cookbook:: wazuh_server
 # Recipe:: suricata
 #
 # Copyright:: 2020, The Authors, All Rights Reserved.
