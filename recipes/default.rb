@@ -5,6 +5,7 @@
 
 include_recipe '::base'
 include_recipe '::firewalld'
+include_recipe '::scanning'
 
 include_recipe '::repository'
 include_recipe '::manager'
