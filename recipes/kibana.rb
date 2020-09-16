@@ -32,7 +32,7 @@ end
 
 service "kibana" do
   supports :start => true, :stop => true, :restart => true, :reload => true
-  action [:restart]
+  action [:enable, :start]
 end
 
 if node[:platform_family].include?("centos")
@@ -40,13 +40,13 @@ if node[:platform_family].include?("centos")
     service "kibana" do
       supports :start => true, :stop => true, :restart => true, :reload => true
       provider Chef::Provider::Service::Init
-      action [:restart]
-    end    
- end
+      action [:enable, :start]
+    end
+  end
 else
   service "kibana" do
     supports :start => true, :stop => true, :restart => true, :reload => true
-    action [:restart]
+    action [:enable, :start]
   end
 end
 
@@ -65,14 +65,14 @@ bash 'Waiting for elasticsearch curl response...' do
   EOH
 end
 
-bash 'Remove old Wazuh Kibana Plugin if exists' do
-  code <<-EOH
-  if [ -d /usr/share/kibana/plugins/wazuh ]
-  then
-    sudo -u kibana /usr/share/kibana/bin/kibana-plugin remove wazuh
-  fi
-  EOH
-end
+# bash 'Remove old Wazuh Kibana Plugin if exists' do
+#   code <<-EOH
+#   if [ -d /usr/share/kibana/plugins/wazuh ]
+#   then
+#     sudo -u kibana /usr/share/kibana/bin/kibana-plugin remove wazuh
+#   fi
+#   EOH
+# end
 
 if platform_family?('debian', 'ubuntu')
   bash 'Install Wazuh-APP (can take a while)' do
@@ -111,8 +111,8 @@ template 'Configuring API credentials in wazuh.yml file' do
   path '/usr/share/kibana/plugins/wazuh/wazuh.yml'
   source 'wazuh.yml.erb'
   owner 'kibana'
-  group 'root'
-  mode 0644
+  group 'kibana'
+  mode '0600'
   notifies :restart, "service[kibana]", :delayed
 end
 

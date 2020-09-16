@@ -29,7 +29,6 @@ else
   raise "Currently platforn not supported yet. Feel free to open an issue on https://www.github.com/wazuh/wazuh-chef if you consider that support for a specific OS should be added"
 end
 
-
 # The dependences should be installed only when the cluster is enabled
 if node['ossec']['conf']['cluster']['disabled'] == 'no'
   if platform_family?('ubuntu', 'debian')
@@ -82,5 +81,5 @@ end
 service 'wazuh' do
   service_name 'wazuh-manager'
   supports :status => true, :restart => true, :reload => true
-  action [:enable, :restart]
+  action [:enable, :start]
 end

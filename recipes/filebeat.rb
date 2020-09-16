@@ -17,19 +17,30 @@ elsif platform_family?('rhel', 'redhat', 'centos', 'amazon')
   end
 
 else
-  raise "Currently platforn not supported yet. Feel free to open an issue on https://www.github.com/wazuh/wazuh-chef if you consider that support for a specific OS should be added"
+  raise 'Currently platforn not supported yet. Feel free to open an issue on https://www.github.com/wazuh/wazuh-chef if you consider that support for a specific OS should be added'
 end
 
-bash 'Elasticsearch_template' do
-  code <<-EOH
-  curl -so /etc/filebeat/wazuh-template.json "https://raw.githubusercontent.com/wazuh/wazuh/#{node['filebeat']['extensions_version']}/extensions/elasticsearch/7.x/wazuh-template.json"
-  EOH
+# bash 'Elasticsearch_template' do
+#   code <<-EOH
+#   curl -so /etc/filebeat/wazuh-template.json "https://raw.githubusercontent.com/wazuh/wazuh/#{node['filebeat']['extensions_version']}/extensions/elasticsearch/7.x/wazuh-template.json"
+#   EOH
+# end
+
+remote_file '/etc/filebeat/wazuh-template.json' do
+  owner 'root'
+  group 'root'
+  mode '0644'
+  source "https://raw.githubusercontent.com/wazuh/wazuh/#{node['filebeat']['extensions_version']}/extensions/elasticsearch/7.x/wazuh-template.json"
 end
 
-bash 'Import Wazuh module for filebeat' do 
-  code <<-EOH
-  curl -s "https://packages.wazuh.com/3.x/filebeat/#{node['filebeat']['wazuh_filebeat_module']}" | tar -xvz -C /usr/share/filebeat/module
-  EOH
+# bash 'Import Wazuh module for filebeat' do 
+#   code <<-EOH
+#   curl -s "https://packages.wazuh.com/3.x/filebeat/#{node['filebeat']['wazuh_filebeat_module']}" | tar -xvz -C /usr/share/filebeat/module
+#   EOH
+# end
+
+tar_extract "https://packages.wazuh.com/3.x/filebeat/#{node['filebeat']['wazuh_filebeat_module']}" do
+  target_dir '/usr/share/filebeat/module'
 end
 
 directory '/usr/share/filebeat/module/wazuh' do
