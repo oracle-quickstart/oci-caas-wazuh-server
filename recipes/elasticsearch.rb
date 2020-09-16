@@ -23,7 +23,7 @@ end
 
 template '/etc/elasticsearch/elasticsearch.yml' do
   source 'elasticsearch.yml.erb'
-  owner 'root'
+  owner 'elasticsearch'
   group 'elasticsearch'
   mode '0660'
   variables({clustername: "cluster.name: #{node['wazuh-elastic']['elasticsearch_cluster_name']}",
@@ -43,7 +43,7 @@ end
 
 template '/etc/elasticsearch/jvm.options' do
   source 'jvm.options.erb'
-  owner 'root'
+  owner 'elasticsearch'
   group 'elasticsearch'
   mode '0660'
   variables({memmory: node['wazuh-elastic']['elasticsearch_memmory']})
@@ -74,7 +74,5 @@ bash 'Verify Elasticsearch folders owner' do
     chown elasticsearch:elasticsearch -R /usr/share/elasticsearch
     chown elasticsearch:elasticsearch -R /var/lib/elasticsearch
   EOF
-  notifies :restart, "service[elasticsearch]", :delayed
+  # notifies :restart, "service[elasticsearch]", :delayed
 end
-
-

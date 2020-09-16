@@ -3,7 +3,7 @@ maintainer 'The Authors'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
 description 'Installs/Configures wazuh_server'
-version '0.2.0'
+version '0.3.0'
 chef_version '>= 16.0'
 
 depends 'apt'
@@ -14,6 +14,7 @@ depends 'htpasswd'
 depends 'firewalld'
 depends 'selinux'
 depends 'clamav'
+depends 'tar'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when

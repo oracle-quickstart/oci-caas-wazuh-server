@@ -43,16 +43,17 @@ directory '/etc/ssl/private' do
 end
 
 bash 'Generate a self-signed ceritificate and a key' do
-    code <<-EOH
-    openssl req -x509 -batch -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/kibana-access.key -out /etc/ssl/certs/kibana-access.pem
-    EOH
+  code <<-EOH
+  openssl req -x509 -batch -nodes -days 365 -newkey rsa:4096 -keyout /etc/ssl/private/kibana-access.key -out /etc/ssl/certs/kibana-access.pem
+  EOH
+  creates '/etc/ssl/certs/kibana-access.pem'
 end
 
 template '/etc/nginx/conf.d/kibana.conf' do
-    source 'nginx.erb'
-    owner 'root'
-    group 'root'
-    mode '0644'
+  source 'nginx.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
 end
 
 if platform_family?('debian', 'ubuntu')
@@ -66,11 +67,11 @@ node.override['htpasswd']['install_method'] = 'ruby'
 include_recipe 'htpasswd::default'
 
 htpasswd "/etc/nginx/conf.d/kibana.htpasswd" do
-    user "#{node['mginx']['user']}"
-    password "#{node['mginx']['password']}"
+  user "#{node['mginx']['user']}"
+  password "#{node['mginx']['password']}"
 end
 
 service "nginx" do
-    supports :start => true, :stop => true, :restart => true, :reload => true
-    action [:restart]
+  supports :start => true, :stop => true, :restart => true, :reload => true
+  action [:enable, :start]
 end

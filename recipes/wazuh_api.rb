@@ -20,14 +20,14 @@ elsif platform_family?('redhat', 'centos', 'rhel', 'amazon')
       cd /tmp &&
       curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -
       EOH
-    not_if { ::File.exist?('/etc/yum.repos.d/nodesource-el.repo') }
+    not_if { ::File.exist?('/etc/yum.repos.d/nodesource-el7.repo') }
   end
 
   yum_package 'wazuh-api' do
     version "#{node['wazuh-manager']['version']}-1"
   end
 else
-  raise "Currently platforn not supported yet. Feel free to open an issue on https://www.github.com/wazuh/wazuh-chef if you consider that support for a specific OS should be added"
+  raise 'Currently platforn not supported yet. Feel free to open an issue on https://www.github.com/wazuh/wazuh-chef if you consider that support for a specific OS should be added'
 end
 
 chef_gem 'chef-vault' do
@@ -65,9 +65,9 @@ if (node['api']['password_plaintext'] == "yes")
     node htpasswd -c user #{api_keys['htpasswd_user']} -b #{api_keys['htpasswd_passcode']}
     cd
     EOH
+    not_if { ::File.exist?('/var/ossec/api/configuration/auth/user') }
   end
-
-else 
+else
   file "#{node['ossec']['dir']}/api/configuration/auth/user" do
     mode '0650'
     owner 'root'
@@ -79,5 +79,5 @@ end
 
 service 'wazuh-api' do
   supports :status => true, :restart => true, :reload => true
-  action [:enable, :restart]
+  action [:enable, :start]
 end
