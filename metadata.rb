@@ -3,7 +3,7 @@ maintainer 'The Authors'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
 description 'Installs/Configures wazuh_server'
-version '0.2.0'
+version '0.3.0'
 chef_version '>= 16.0'
 
 depends 'apt'
