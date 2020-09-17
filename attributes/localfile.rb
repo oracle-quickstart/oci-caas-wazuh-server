@@ -1,4 +1,3 @@
-
 if platform_family?('debian','ubuntu')
   default['ossec']['conf']['localfile'] = [
     {
@@ -89,6 +88,36 @@ elsif platform_family?("centos","redhat","rhel", "amazon")
     {
       'content!' => {
         'log_format' => 'syslog',
+        'location' => '/var/log/clamav/freshclam.log'
+        }
+    },
+    {
+      'content!' => {
+        'log_format' => 'syslog',
+        'location' => '/var/log/suricata/suricata.log'
+        }
+    },
+    {
+      'content!' => {
+        'log_format' => 'json',
+        'location' => '/var/log/suricata/eve.json'
+        }
+    },
+    {
+      'content!' => {
+        'log_format' => 'syslog',
+        'location' => '/var/log/lynis.log'
+        }
+    },
+    {
+      'content!' => {
+        'log_format' => 'syslog',
+        'location' => '/var/log/lynis-report.dat'
+        }
+    },
+    {
+      'content!' => {
+        'log_format' => 'syslog',
         'location' => '/var/log/secure'
         }
     },
@@ -96,10 +125,3 @@ elsif platform_family?("centos","redhat","rhel", "amazon")
 else
   raise "Currently platforn not supported yet. Feel free to open an issue on https://www.github.com/wazuh/wazuh-chef if you consider that support for a specific OS should be added"
 end
-
-
-
-
-
-
-
