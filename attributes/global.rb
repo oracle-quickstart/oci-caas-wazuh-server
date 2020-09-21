@@ -1,7 +1,7 @@
 default['ossec']['conf']['global']['jsonout_output'] = true
 default['ossec']['conf']['global']['alerts_log'] = true
-default['ossec']['conf']['global']['logall'] = false
-default['ossec']['conf']['global']['logall_json'] = false
+default['ossec']['conf']['global']['logall'] = true
+default['ossec']['conf']['global']['logall_json'] = true
 default['ossec']['conf']['global']['email_notification'] = false
 default['ossec']['conf']['global']['smtp_server'] = 'smtp.example.wazuh.com'
 default['ossec']['conf']['global']['email_from'] = 'ossecm@example.wazuh.com'
