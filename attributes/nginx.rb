@@ -1,2 +1,2 @@
-default['mginx']['user'] = 'user1'
-default['mginx']['password'] = 'nginx1'
+default['mginx']['user'] = node['wazuh_user']
+default['mginx']['password'] = node['wazuh_password']
