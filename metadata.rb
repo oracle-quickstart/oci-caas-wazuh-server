@@ -1,7 +1,7 @@
 name 'wazuh_server'
 maintainer 'The Authors'
 maintainer_email 'you@example.com'
-license 'All Rights Reserved'
+license          'Apache 2.0'
 description 'Installs/Configures wazuh_server'
 version '0.3.0'
 chef_version '>= 16.0'
