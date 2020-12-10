@@ -38,3 +38,5 @@ default['clamav']['dev_package'] = false
 
 # To fix an htauth installation error due to old apt cookbook dependency
 force_override['htpasswd']['install_method'] = 'packages'
+
+default['runlist_name'] = 'wazuh_server'

@@ -3,9 +3,11 @@
 # Recipe:: default
 #
 
-include_recipe '::base'
+include_recipe 'oci_caas_base::base'
+
+include_recipe '::wazuh_base'
 include_recipe '::firewalld'
-include_recipe '::scanning'
+include_recipe 'oci_caas_base::scanning'
 
 include_recipe '::repository'
 include_recipe '::manager'
@@ -15,7 +17,7 @@ include_recipe '::nginx'
 include_recipe '::elasticsearch'
 include_recipe '::kibana'
 
-include_recipe '::clamav'
-include_recipe '::suricata'
+include_recipe 'oci_caas_base::clamav'
+include_recipe 'oci_caas_base::suricata'
 
 include_recipe 'selinux::default'
