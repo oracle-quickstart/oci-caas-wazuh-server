@@ -43,14 +43,6 @@ chef_gem 'gyoku' do
   compile_time false if respond_to?(:compile_time)
 end
 
-# Clear out client config to remove conflicting attributes
-ruby_block 'clear-client-config' do
-  block do
-    node.rm('ossec', 'config', 'client')
-  end
-  action :run
-end
-
 ## Generate Ossec.conf
 file "#{node['ossec']['dir']}/etc/ossec.conf" do
   owner 'root'
@@ -58,7 +50,6 @@ file "#{node['ossec']['dir']}/etc/ossec.conf" do
   mode '0440'
   manage_symlink_source true
   notifies :restart, 'service[wazuh]'
-  notifies :run, 'ruby_block[clear-client-config]', :before
 
   content lazy {
     all_conf = node['ossec']['conf'].to_hash
