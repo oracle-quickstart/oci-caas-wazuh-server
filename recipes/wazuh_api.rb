@@ -50,7 +50,7 @@ begin
     end
   end
 
-rescue ArgumentError, Net::HTTPServerException
+rescue ArgumentError, Net::HTTPServerException, ChefVault::Exceptions::ItemNotFound
   api_keys = {'htpasswd_user' => "#{node['api']['user']}", 'htpasswd_passcode' => "#{node['api']['passcode']}"}
   log "No api crendentials. Installation will continue with defaults (foo:bar)..." do
     level :info
