@@ -1,7 +1,7 @@
 source 'https://supermarket.chef.io'
 metadata
 
-cookbook 'oci_caas_base', git: 'git@github.com:oracle-quickstart/oci-caas-base.git', branch: 'main'
+cookbook 'oci_caas_base', git: 'https://github.com/oracle-quickstart/oci-caas-base.git', branch: 'main'
 
 cookbook 'hostsfile'
 cookbook 'apt'
